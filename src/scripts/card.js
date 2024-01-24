@@ -1,21 +1,18 @@
-// @todo: Темплейт карточки
+import { initialCards } from './cards.js';
+import { showCard } from '../index.js';
 
-// @todo: DOM узлы
-
-// @todo: Функция создания карточки
-
-// @todo: Функция удаления карточки
-
-// @todo: Вывести карточки на страницу
-
-const cardsContainer = document.querySelector('.places__list');
+export const cardsContainer = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template').content;
 
-function removeCardElement(element) {
+export function removeCardElement(element) {
   element.remove();
 };
 
-function createCard(card, removeCard) {
+export function cardLike(element) {
+    element.classList.toggle('card__like-button_is-active')
+};
+
+export function createCard(card, removeCard) {
     const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
 
     cardElement.querySelector('.card__image').src = card.link;
@@ -25,6 +22,12 @@ function createCard(card, removeCard) {
     const deleteButton = cardElement.querySelector('.card__delete-button');
     deleteButton.addEventListener('click',  () => removeCard(cardElement));
 
+    const cardLikeBtn = cardElement.querySelector('.card__like-button');
+    cardLikeBtn.addEventListener('click', () => cardLike(cardLikeBtn));
+
+    const cardsImg = cardElement.querySelector('.card__image');
+    cardsImg.addEventListener("click", () => showCard(card));
+
     return cardElement;
 }
 
@@ -33,5 +36,6 @@ function addCard(appendCard) {
 }
 
 initialCards.forEach ( (element) => addCard(element));
+
 
 
