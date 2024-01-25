@@ -1,7 +1,3 @@
-import { initialCards } from './cards.js';
-import { showCard } from '../index.js';
-
-export const cardsContainer = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template').content;
 
 export function removeCardElement(element) {
@@ -12,7 +8,7 @@ export function cardLike(element) {
     element.classList.toggle('card__like-button_is-active')
 };
 
-export function createCard(card, removeCard) {
+export function createCard(card, removeCard, cardLike, showImg) {
     const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
 
     cardElement.querySelector('.card__image').src = card.link;
@@ -26,16 +22,12 @@ export function createCard(card, removeCard) {
     cardLikeBtn.addEventListener('click', () => cardLike(cardLikeBtn));
 
     const cardsImg = cardElement.querySelector('.card__image');
-    cardsImg.addEventListener("click", () => showCard(card));
+    cardsImg.addEventListener("click", () => showImg(card));
 
     return cardElement;
-}
+};
 
-function addCard(appendCard) {
-    cardsContainer.append(createCard(appendCard, removeCardElement));
-}
 
-initialCards.forEach ( (element) => addCard(element));
 
 
 

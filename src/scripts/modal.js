@@ -1,13 +1,13 @@
 // функция oткрытия попапа
 function openModal(popup) {
     popup.classList.add('popup_is-opened');
-    popup.classList.add('popup_is-animated');
     document.addEventListener('keydown',  handleKeydown);
 };
 
 // функция закрытия попапа
 function closeModal(popup) {
     popup.classList.remove('popup_is-opened');
+    document.removeEventListener('keydown',  handleKeydown);
 };
 
 // закрытие при клики на оверлей
