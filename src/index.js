@@ -66,7 +66,7 @@ function forAddCard(evt) {
   cardAdd.name = placeName.value;
   cardAdd.link = link.value;
 
-  const card = createCard(cardAdd, removeCardElement, cardLike);
+  const card = createCard(cardAdd, removeCardElement, cardLike, showImg);
 
   cardsContainer.prepend(card);
   
