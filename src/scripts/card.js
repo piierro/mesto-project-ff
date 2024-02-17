@@ -3,14 +3,14 @@ import { addLike, removeLike, deleteCard } from './api.js';
 const cardTemplate = document.querySelector('#card-template').content;
 
 //удаление карточки
-export function removeCardElement(element, cardId, deleteCard) {
+export function removeCardElement(element, cardId) {
   deleteCard(cardId)
   .then(() => {element.remove();})
   .catch((err) => {console.log(err);});
 };
 
 //добавление и удаления лайков
-export function cardLike(evt, countElement, cardId) {
+export function handleLikeClick(evt, countElement, cardId) {
   const checkedLike = evt.classList.contains('card__like-button_is-active') ? removeLike : addLike;
   checkedLike (cardId)
     .then((data) => {
@@ -20,7 +20,7 @@ export function cardLike(evt, countElement, cardId) {
     .catch(err => console.log(err));
 };
 
-export function createCard(card, removeCardElement, cardLike, showImg, userId) {
+export function createCard(card, removeCardElement, handleLikeClick, showImg, userId) {
     const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
 
     const cardImg = cardElement.querySelector('.card__image');
@@ -37,12 +37,12 @@ export function createCard(card, removeCardElement, cardLike, showImg, userId) {
     // удаление своей карточки
     if (card.owner._id === userId) {
       deleteButton.addEventListener('click', () => removeCardElement (cardElement, card._id, deleteCard));
-    } else {deleteButton.setAttribute('style', 'display: none;')}
+    } else {deleteButton.style.display = 'none'}
 
     if (card.likes.some(element => element._id === userId)) {
       cardLikeBtn.classList.add('card__like-button_is-active');
     }
-    cardLikeBtn.addEventListener('click', () => cardLike(cardLikeBtn, cardLikeCount, card._id));
+    cardLikeBtn.addEventListener('click', () => handleLikeClick(cardLikeBtn, cardLikeCount, card._id));
 
     cardImg.addEventListener("click", () => showImg(card));
 

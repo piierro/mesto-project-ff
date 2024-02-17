@@ -23,9 +23,7 @@ const setEventListeners = (formElement, validationConfig) => {
 
 //проверить все поля на валидность
 const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-  return !inputElement.validity.valid;
-  })
+  inputList.some((input) => !input.validity.valid);
 };
 
 //показать ошибку в инпуте

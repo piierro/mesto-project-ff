@@ -6,18 +6,20 @@ const config = {
     }
 };
 
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 //функция информации о польхователе с сервера
 function getUserInfo() {
     return fetch(`${config.baseUrl}/users/me`, {
       method: "GET",
       headers: config.headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+    .then(checkResponse);
 };
 
 // Функция получения карточек с сервера
@@ -26,12 +28,7 @@ function getInitialCards() {
       method: "GET",
       headers: config.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(checkResponse);
 };
 
 // Функция редактирования профиля
@@ -43,12 +40,8 @@ function editProfile(name, description) {
           name,
           about: description,
         }),
-      }).then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      })
+      .then(checkResponse);
 };
 
 //функция добавления новой карточки
@@ -60,12 +53,8 @@ function addNewCard(name, link) {
           name,
           link,
         }),
-      }).then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
+      })
+      .then(checkResponse);
 };
 
 // Функция добавления лайка
@@ -73,12 +62,8 @@ function addLike(cardId) {
     return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: config.headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    })
+    .then(checkResponse);
 };
 
 // Функция удаления лайка
@@ -86,12 +71,8 @@ function removeLike(cardId) {
     return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: config.headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    })
+    .then(checkResponse);
 };
 
 // Функция удаления карточки c сервера
@@ -99,12 +80,8 @@ function deleteCard(cardId) {
     return fetch(`${config.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: config.headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    })
+    .then(checkResponse);
 };
 
 // Функция обновления аватара
@@ -115,12 +92,8 @@ function editAvatar(avatar) {
       body: JSON.stringify({
         avatar: avatar,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
+    })
+    .then(checkResponse);
+}
 
 export { getUserInfo, getInitialCards, editProfile, addNewCard, addLike, removeLike, deleteCard, editAvatar };
