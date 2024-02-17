@@ -5,3 +5,13 @@
   background: #fff;
   padding: 25px 20px;
 }
+
+.card-like__counter {
+  display: grid;
+}
+
+.card__like-counter {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 2px;
+}

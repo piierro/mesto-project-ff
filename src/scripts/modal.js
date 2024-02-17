@@ -12,10 +12,12 @@ function closeModal(popup) {
 
 // закрытие при клики на оверлей
 const handleFormOverlay = (evt) => {
-    if (evt.target === evt.currentTarget) {
-        const overlay = document.querySelector('.popup_is-opened')
-       closeModal(overlay);
-   }
+    if (evt.target.classList.contains("popup_is-opened")) {
+        closeModal(evt.target);
+      }
+    if (evt.target.closest(".popup__close")) {
+        closeModal(evt.target.closest(".popup"));
+     }
 };
 // закрытие при клики esc
 const handleKeydown = (evt) => {
