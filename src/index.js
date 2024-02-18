@@ -111,7 +111,6 @@ function handlerFormEditProfile(evt) {
     profileName.textContent = res.name;
     profileDescription.textContent = res.about;
     closeModal(editCard);
-    formEditProfile.reset();
   })
   .catch((err) => {
     console.log(err);
